@@ -19,6 +19,10 @@ Route::middleware('auth')->group(function () {
 });
 Route::get('/test', [testcontroller::class, 'test'])->name('test');
 Route::get('/home', [sjoelmaster::class, 'home'])->name('home');
+Route::get('/home', function () {
+    $items = ['Item 1', 'Item 2', 'Item 3'];
+    return view('home', compact('items'));
+});
 
 require __DIR__.'/auth.php';
 
