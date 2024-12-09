@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\testcontroller;
-use App\Http\Controllers\sjoelmaster;
+use App\Models\Player;
+use App\Models\Score;
+use Illuminate\Http\Request;
+
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('scores', sjoelmaster::class);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -17,12 +18,44 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get('/test', [testcontroller::class, 'test'])->name('test');
-Route::get('/home', [sjoelmaster::class, 'home'])->name('home');
-Route::get('/home', function () {
-    $items = ['Item 1', 'Item 2', 'Item 3'];
-    return view('home', compact('items'));
+
+// Form to input scores
+Route::get('/score-form', function () {
+    $players = Player::all();
+    return view('score-form', compact('players'));
+})->name('score.form');
+
+
+Route::post('/scores', function (Request $request) {
+    $validated = $request->validate([
+        'player' => 'required|string|max:255',
+        'score' => 'required|integer',
+    ]);
+
+    // Check if the player exists
+    $player = Player::where('name', $validated['player'])->first();
+
+    if (!$player) {
+        return redirect()->back()->withErrors(['player' => 'De opgegeven speler bestaat niet.'])->withInput();
+    }
+
+    // Save the score
+    $score = new Score;
+    $score->player_id = $player->id;
+    $score->score = $validated['score'];
+    $score->save();
+
+    return redirect('/score-form')->with('success', 'Score opgeslagen!');
+})->name('scores.store');
+
+
+// Add player route
+Route::get('/add-player', function () {
+    $player = new Player;
+    $player->name = 'Kanker';
+    $player->save();
+
+    return 'Player added!';
 });
 
 require __DIR__.'/auth.php';
-
