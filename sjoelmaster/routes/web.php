@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Player;
 use App\Models\Score;
 use Illuminate\Http\Request;
+use App\Http\Middleware\CheckRole;
+use App\Http\Controllers\ProfileController;
+Route::get('/admin', function () {
+    // Admin only page
+})->middleware(CheckRole::class.':admin');
 
 Route::get('/', function () {
     return view('welcome');
