@@ -18,6 +18,7 @@ return view('admin');
 
 Route::get('/', function () {
     return view('welcome');
+    
 });
 
 Route::get('/dashboard', function () {
@@ -68,5 +69,6 @@ Route::get('/add-player', function () {
 
     return 'Player added!';
 });
+
 
 require __DIR__.'/auth.php';
