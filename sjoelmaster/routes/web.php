@@ -12,8 +12,9 @@ Route::get('/dashboard', function () {
 })->middleware('auth');
 
 Route::get('/admin', function () {
-    // Admin only page
+return view('admin');
 })->middleware(CheckRole::class.':admin');
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -62,7 +63,7 @@ Route::post('/scores', function (Request $request) {
 // Add player route
 Route::get('/add-player', function () {
     $player = new Player;
-    $player->name = 'Kanker';
+    $player->name = 'Glen';
     $player->save();
 
     return 'Player added!';
