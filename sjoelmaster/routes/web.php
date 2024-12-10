@@ -6,6 +6,11 @@ use App\Models\Score;
 use Illuminate\Http\Request;
 use App\Http\Middleware\CheckRole;
 use App\Http\Controllers\ProfileController;
+
+Route::get('/dashboard', function () {
+    // Protected route
+})->middleware('auth');
+
 Route::get('/admin', function () {
     // Admin only page
 })->middleware(CheckRole::class.':admin');
