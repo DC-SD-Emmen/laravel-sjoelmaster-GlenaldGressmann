@@ -1,25 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Player;
-use App\Models\Score;
-use Illuminate\Http\Request;
-use App\Http\Middleware\CheckRole;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Controller;    
+use App\Http\Controllers\ScoreController;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/dashboard', function () {
-    // Protected route
-})->middleware('auth');
-
-Route::get('/admin', function () {
-return view('admin');
-})->middleware(CheckRole::class.':admin');
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 
-Route::get('/', function () {
-    return view('welcome');
-    
-});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -31,44 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Form to input scores
-Route::get('/score-form', function () {
-    $players = Player::all();
-    return view('score-form', compact('players'));
-})->name('score.form');
-
-
-Route::post('/scores', function (Request $request) {
-    $validated = $request->validate([
-        'player' => 'required|string|max:255',
-        'score' => 'required|integer',
-    ]);
-
-    // Check if the player exists
-    $player = Player::where('name', $validated['player'])->first();
-
-    if (!$player) {
-        return redirect()->back()->withErrors(['player' => 'De opgegeven speler bestaat niet.'])->withInput();
-    }
-
-    // Save the score
-    $score = new Score;
-    $score->player_id = $player->id;
-    $score->score = $validated['score'];
-    $score->save();
-
-    return redirect('/score-form')->with('success', 'Score opgeslagen!');
-})->name('scores.store');
-
-
-// Add player route
-Route::get('/add-player', function () {
-    $player = new Player;
-    $player->name = 'Glen';
-    $player->save();
-
-    return 'Player added!';
-});
-
+Route::get('/score-form', [ScoreController::class, 'showForm'])->name('score-form');
+Route::post('/scores', [ScoreController::class, 'store'])->name('scores.store');
 
 require __DIR__.'/auth.php';
