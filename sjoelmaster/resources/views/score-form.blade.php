@@ -1,38 +1,49 @@
-@extends('layouts.app')
-<link rel="stylesheet" href="{{ asset('css/navigation.css') }}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Voeg een score toe</h2>
 
-@section('content')
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    <form action="{{ route('scores.store') }}" method="POST">
-        @csrf
-        <label for="user" style="color: white;">Gebruiker:</label>
-        <select id="user" name="user" required style="background-color: #333; color: white; border: 1px solid #ccc; padding: 5px; border-radius: 4px;">
-            <option value="" disabled selected>-- Selecteer een gebruiker --</option>
-            @foreach ($users as $user)
-                <option value="{{ $user->id }}" {{ old('user') == $user->id ? 'selected' : '' }}>
-                    {{ $user->name }}
-                </option>
-            @endforeach
-        </select>
-        
-        <label for="score" style="color: white;">Score:</label>
-        <input type="number" id="score" name="score" value="{{ old('score') }}" required>
-        
-        <button type="submit" style="background-color: white; color: black; border: 1px solid #ccc; padding: 8px 12px; border-radius: 4px;">Opslaan</button>
-    </form>
-@endsection
+        <form action="{{ route('score.store') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label for="user" class="form-label">Gebruiker:</label>
+                <select name="user" id="user" class="form-control">
+                    <option value="">Selecteer een gebruiker</option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="score" class="form-label">Score:</label>
+                <input type="number" name="score" id="score" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Opslaan</button>
+        </form>
+    </div>
+</body>
+</html>
+```
