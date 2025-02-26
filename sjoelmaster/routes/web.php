@@ -8,11 +8,18 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Index;
 
+
+
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 Route::get('/', [DashboardController::class, 'dashboard'])->middleware('auth')->name('dashboard');
 Route::get('/score-form', [ScoreController::class, 'showForm'])->name('score.form');
 Route::post('/score-form', [ScoreController::class, 'store'])->name('score.store');
 Route::resource('users', UserController::class);
+Route::get('users/create', [UserController::class, 'users.create']);
+Route::get('users/create', [UserController::class, 'create'])->name('users.create');
+Route::post('users', [UserController::class, 'store'])->name('users.store');
+
+
 
 
 

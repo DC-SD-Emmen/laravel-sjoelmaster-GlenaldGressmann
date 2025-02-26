@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="flex justify-between items-center mb-4">
-        <h2 class="text-lg font-semibold">Users List</h2>
+       
         <a href="{{ route('users.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
             Create New User
         </a>
@@ -42,17 +42,18 @@
                                 @method('DELETE')
                                 <button type="submit" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600" onclick="return confirm('Are you sure?')">
                                     Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+     @endforeach
+    </tbody>
+    </table>
     </div>
 
     <div class="mt-4">
         {{ $users->links() }}
     </div>
 </div>
+
 @endsection
