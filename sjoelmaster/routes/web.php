@@ -7,6 +7,9 @@ use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Index;
+use App\Http\Controllers\GamesController;
+use App\Http\Controllers\CompetitieController;
+
 
 
 
@@ -18,6 +21,9 @@ Route::resource('users', UserController::class);
 Route::get('users/create', [UserController::class, 'users.create']);
 Route::get('users/create', [UserController::class, 'create'])->name('users.create');
 Route::post('users', [UserController::class, 'store'])->name('users.store');
+Route::get('/games', [GamesController::class, 'games'])->name('games');
+Route::get('/competitie/create', [CompetitieController::class, 'create'])->name('competitie.create');
+Route::post('/competitie/store', [CompetitieController::class, 'store'])->name('competitie.store');
 
 
 
