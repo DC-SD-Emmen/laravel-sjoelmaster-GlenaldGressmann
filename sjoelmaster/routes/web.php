@@ -24,6 +24,10 @@ Route::post('users', [UserController::class, 'store'])->name('users.store');
 Route::get('/games', [GamesController::class, 'games'])->name('games');
 Route::get('/competitie/create', [CompetitieController::class, 'create'])->name('competitie.create');
 Route::post('/competitie/store', [CompetitieController::class, 'store'])->name('competitie.store');
+Route::get('/games/create', [GamesController::class, 'create'])->name('games.create');
+Route::post('/games/store', [GamesController::class, 'store'])->name('games.store');
+Route::resource('games', GamesController::class);
+
 
 
 
