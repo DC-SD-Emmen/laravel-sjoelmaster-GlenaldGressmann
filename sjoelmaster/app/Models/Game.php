@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Game extends Model
 {
 
-    protected $fillable = ['name', 'description']; // Ensure fillable fields are defined
+    protected $fillable = ['name', 'description', 'start_date', 'competition_id'];
 }

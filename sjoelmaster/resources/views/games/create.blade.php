@@ -68,7 +68,7 @@
                             <div>
                                 <label for="competitie" class="block text-sm font-medium text-gray-300">Select Competitie <span class="text-red-500">*</span></label>
                                 <div class="mt-1">
-                                    <select name="competitie_id" id="competitie" required class="block w-full bg-gray-700 border-gray-600 text-white focus:border-custom focus:ring-custom !rounded-button">
+                                    <select name="competition_id" id="competitie" required class="block w-full bg-gray-700 border-gray-600 text-white focus:border-custom focus:ring-custom !rounded-button">
                                         <option value="" disabled selected>Select a Competitie</option>
                                         @foreach ($competities as $competitie)
                                             <option value="{{ $competitie->id }}">{{ $competitie->name }}</option>

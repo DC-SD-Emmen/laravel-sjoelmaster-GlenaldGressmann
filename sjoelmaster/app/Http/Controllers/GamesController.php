@@ -21,7 +21,7 @@ class GamesController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'start_date' => 'required|date', // Ensure start_date is required
-            'competition_id' => 'required|exists:competities,id',
+            'competition_id' => 'required',
         ]);
         Game::create($validated);
         return redirect()->route('games.create')->with('success', 'Game created successfully!');

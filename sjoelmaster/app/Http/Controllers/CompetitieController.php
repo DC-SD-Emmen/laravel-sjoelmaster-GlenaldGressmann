@@ -16,7 +16,7 @@ class CompetitieController extends Controller
     // Store the new competition details
     public function store(Request $request)
     {
-        // Validate the form data
+        dd($request->all()); // Debug incoming request
         $request->validate([
             'name' => 'required|string|max:255',
             'start_date' => 'required|date',
