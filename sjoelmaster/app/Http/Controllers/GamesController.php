@@ -20,7 +20,7 @@ class GamesController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'start_date' => 'required|date', // Ensure start_date is required
+            'start_date' => 'required|date', 
             'competition_id' => 'required',
         ]);
         Game::create($validated);

@@ -6,8 +6,8 @@
         <div class="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
             <div class="bg-gray-800 shadow rounded-lg">
                 <div class="px-8 py-6 border-b border-gray-700">
-                    <h1 class="text-2xl font-semibold text-white">Add Details</h1>
-                    <p class="mt-2 text-sm text-gray-400">Add the project or task details.</p>
+                    <h1 class="text-2xl font-semibold text-white">Games</h1>
+                   
                 </div>
 
                 <!-- Success and Error Messages -->
@@ -46,7 +46,7 @@
                 <form action="{{ route('games.store') }}" method="POST" class="px-8 py-6 space-y-6">
                     @csrf
                     <div class="space-y-6">
-                        <h2 class="text-lg font-medium text-white">Project Information</h2>
+                       
                         <div class="space-y-4">
                             <!-- Name Input -->
                             <div>

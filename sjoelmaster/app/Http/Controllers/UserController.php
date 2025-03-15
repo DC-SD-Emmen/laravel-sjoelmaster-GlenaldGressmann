@@ -10,17 +10,26 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    /**
+     * Toon een lijst van gebruikers met paginering.
+     */
     public function index()
     {
         $users = User::paginate(10);
         return view('users.index', compact('users'));
     }
 
+    /**
+     * Toon het formulier voor het aanmaken van een nieuwe gebruiker.
+     */
     public function create()
     {
         return view('users.create');
     }
 
+    /**
+     * Sla een nieuwe gebruiker op in de database.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -35,23 +44,29 @@ class UserController extends Controller
         $user->password = Hash::make($validated['password']);
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        return redirect()->route('users.index')->with('success', 'Gebruiker succesvol aangemaakt.');
     }
 
-    // Show all scores for a user
+    /**
+     * Toon alle scores van een gebruiker.
+     */
     public function showScores(User $user)
     {
         $scores = Score::where('user_id', $user->id)->get();
         return view('users.scores', compact('user', 'scores'));
     }
 
-    // Show the edit form for a score
+    /**
+     * Toon het bewerkingsformulier voor een score.
+     */
     public function editScoreForm(User $user, Score $score)
     {
         return view('users.edit-score', compact('user', 'score'));
     }
 
-    // Update a score
+    /**
+     * Werk een score bij.
+     */
     public function updateScore(Request $request, User $user, Score $score)
     {
         $request->validate([
@@ -60,14 +75,16 @@ class UserController extends Controller
 
         $score->update(['score' => $request->score]);
 
-        return redirect()->route('users.scores', $user)->with('success', 'Score updated successfully!');
+        return redirect()->route('users.scores', $user)->with('success', 'Score succesvol bijgewerkt!');
     }
 
-    // Delete a score
+    /**
+     * Verwijder een score.
+     */
     public function deleteScore(User $user, Score $score)
     {
         $score->delete();
 
-        return redirect()->route('users.scores', $user)->with('success', 'Score deleted successfully!');
+        return redirect()->route('users.scores', $user)->with('success', 'Score succesvol verwijderd!');
     }
 }

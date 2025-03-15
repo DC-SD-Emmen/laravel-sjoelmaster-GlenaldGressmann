@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class competitie extends Model
 {
-    protected $fillable = ['name', 'start_date', 'finish_date']; // Define the fillable columns
+    protected $fillable = ['name', 'start_date', 'finish_date']; 
 }
