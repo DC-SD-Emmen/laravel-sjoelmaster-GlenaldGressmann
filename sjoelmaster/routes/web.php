@@ -27,7 +27,10 @@ Route::post('/competitie/store', [CompetitieController::class, 'store'])->name('
 Route::get('/games/create', [GamesController::class, 'create'])->name('games.create');
 Route::post('/games/store', [GamesController::class, 'store'])->name('games.store');
 Route::resource('games', GamesController::class);
-
+Route::get('/users/{user}/scores', [UserController::class, 'showScores'])->name('users.scores');
+Route::get('/users/{user}/scores/{score}/edit', [UserController::class, 'editScoreForm'])->name('users.scores.edit');
+Route::put('/users/{user}/scores/{score}', [UserController::class, 'updateScore'])->name('users.scores.update');
+Route::delete('/users/{user}/scores/{score}', [UserController::class, 'deleteScore'])->name('users.scores.delete');
 
 
 

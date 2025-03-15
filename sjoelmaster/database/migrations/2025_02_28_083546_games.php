@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->date('start_date'); // Start Date
             $table->foreignId('competition_id')->constrained('competities')->onDelete('cascade'); 
             $table->timestamps(); // Created_at and Updated_at
-            $table->dateTime('start_date')->nullable(); 
+           
         });
     }
 

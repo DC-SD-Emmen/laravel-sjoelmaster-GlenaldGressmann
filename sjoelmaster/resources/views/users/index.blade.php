@@ -1,59 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container mx-auto px-4 py-6">
     <div class="flex justify-between items-center mb-4">
-       
-        <a href="{{ route('users.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-            Create New User
+        <h2 class="text-2xl font-bold text-white">Users</h2>
+        <a href="{{ route('users.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+            + Create New User
         </a>
     </div>
 
     @if (session('success'))
-        <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+        <div class="mb-4 p-4 bg-green-600 text-white rounded-lg shadow-md">
             {{ session('success') }}
         </div>
     @endif
 
-    <div class="overflow-x-auto bg-white shadow-md rounded-lg">
-        <table class="min-w-full divide-y divide-gray-200 border">
-            <thead>
+    <div class="overflow-x-auto bg-gray-800 shadow-lg rounded-lg">
+        <table class="min-w-full text-gray-300">
+            <thead class="bg-gray-700 text-gray-200">
                 <tr>
-                    <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                    <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-                    <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                    <th class="px-6 py-3 text-left text-xs font-semibold uppercase">Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-semibold uppercase">Email</th>
+                    <th class="px-6 py-3 text-left text-xs font-semibold uppercase">Actions</th>
                 </tr>
             </thead>
 
-            <tbody class="bg-white divide-y divide-gray-200 divide-solid">
+            <tbody>
                 @foreach($users as $user)
-                    <tr class="bg-white">
-                        <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-900">
-                            {{ $user->name }}
+                    <tr class="border-b border-gray-700 hover:bg-gray-700 transition">
+                        <td class="px-6 py-4 text-sm">{{ $user->name }}</td>
+                        <td class="px-6 py-4 text-sm">{{ $user->email }}</td>
+                        <td class="px-6 py-4 flex space-x-2">
+                            <a href="{{ route('users.scores', $user->id) }}" 
+                               class="px-3 py-1 bg-green-500 hover:bg-green-600 text-white rounded-lg text-xs font-medium transition">
+                                View
+                            </a>
+                            
                         </td>
-                        <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-900">
-                            {{ $user->email }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-no-wrap text-sm">
-                            <a href="{{ route('users.show', $user->id) }}" class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">View</a>
-                            <a href="{{ route('users.edit', $user->id) }}" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600">Edit</a>
-                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600" onclick="return confirm('Are you sure?')">
-                                    Delete
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-     @endforeach
-    </tbody>
-    </table>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 
-    <div class="mt-4">
-        {{ $users->links() }}
+    <div class="mt-6">
+        {{ $users->links('pagination::tailwind') }}
     </div>
 </div>
-
 @endsection
